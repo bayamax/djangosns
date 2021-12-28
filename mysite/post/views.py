@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect
-
 from .forms import PostCreateForm
+from .models import Post
+
+def post_list(request):
+    context = {
+        'post_list': Post.objects.all(), # 追加
+    }
+    return render(request, 'post/post_list.html', context)
 
 def post_create(request):
     if request.method == "POST":
