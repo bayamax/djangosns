@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,5 +12,13 @@
         {% endfor %}
         
     </body>
+=======
+{% extends "base.html" %}
+>>>>>>> 7b7c04cec4917a9bdf40dceaac0ef7fa087e19a6
 
-</html>
+{% block content %}
+    <h2>投稿一覧</h2>
+    {% for post in post_list %}
+        <p>{{ post.content }}</p>
+    {% endfor %}
+{% endblock %}
