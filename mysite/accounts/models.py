@@ -1,11 +1,11 @@
-from django.db import models
-
-# Create your models here.
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
+# Create your models here.
+
 
 class UserManager(BaseUserManager):
 
@@ -19,7 +19,8 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('The given email must be set')
 
-        user = self.model(username=self.model.normalize_username(username), email=self.normalize_email(email), **extra_fields)
+        user = self.model(username=self.model.normalize_username(
+            username), email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -51,7 +52,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
-        help_text=_('Designates whether the user can log into this admin site.'),
+        help_text=_(
+            'Designates whether the user can log into this admin site.'),
     )
     is_active = models.BooleanField(
         _('active'),
@@ -63,7 +65,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     date_joined = models.DateTimeField(default=timezone.now)
     objects = UserManager()
-
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -71,4 +72,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
-
